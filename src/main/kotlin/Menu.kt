@@ -14,12 +14,17 @@ class Menu(
             print("Выберите пункт: ")
 
             when (val input = scanner.nextLine().toIntOrNull()) {
-                null -> println("❌ Нужно ввести число")
+                null -> {
+                    println("❌ Нужно ввести число")
+                    continue
+                }
                 0 -> return false
-                in 1..items.size -> if (!items[input - 1].second()) return false
+                in 1..items.size -> {
+                    val shouldContinue = items[input - 1].second()
+                    if (!shouldContinue) return false
+                }
                 else -> println("❌ Неверный номер")
             }
         }
-        return true
     }
 }

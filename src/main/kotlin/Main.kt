@@ -5,7 +5,8 @@ fun main() {
     val archives = mutableListOf<Archive>()
 
     fun showNotesMenu(archive: Archive) {
-        while (true) {
+        var shouldShowMenu = true
+        while (shouldShowMenu) {
             val items = mutableListOf<Pair<String, () -> Boolean>>().apply {
                 add("Создать заметку" to {
                     print("Введите название заметки: ")
@@ -24,7 +25,7 @@ fun main() {
 
                     archive.notes.add(Note(title, content))
                     println("✅ Заметка '$title' добавлена")
-                    true
+                    false
                 })
 
                 archive.notes.forEach { note ->
@@ -38,7 +39,7 @@ fun main() {
                 }
             }
 
-            Menu(
+            shouldShowMenu = Menu(
                 title = "📂 Архив: ${archive.name}",
                 items = items
             ).show(exitText = "Назад")
@@ -57,7 +58,7 @@ fun main() {
                     }
                     archives.add(Archive(name))
                     println("✅ Архив '$name' создан")
-                    true
+                    false
                 })
 
                 archives.forEach { archive ->
@@ -72,7 +73,6 @@ fun main() {
                 title = "🗄️ Главное меню",
                 items = items
             ).show(exitText = "Выход из программы")
-
         }
     }
 
